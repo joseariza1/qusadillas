@@ -1,14 +1,14 @@
 {
-  "name": "Compras",
-  "short_name": "Mis Comrpas",
-  "start_url": "index.html",
+  "name": "POS Antojitos Mary",
+  "short_name": "POS Mary",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#ff85a2",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "www.kindpng.com/picc/m/424-4245845_no-tiene-artculos-en-su-carrito-de-compras.png",
+      "src": "cdn-icons-png.flaticon.com/512/581/581771.png",
       "sizes": "512px",
       "type": "image/png"
     }
