@@ -1,22 +1,22 @@
-const CACHE_NAME = 'insumos-cache-v1';
+const CACHE_NAME = 'pos-mary-cache-v1';
 const ASSETS = [
-  'index.html',
-  'manifest.json',
-  'https://cdn.tailwindcss.com',
-  'https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js',
-  'https://fonts.googleapis.com/css2?family=Inter:wght=400;700;900&display=swap'
+  './',
+  './index.html',
+  './manifest.json'
 ];
 
-// Instalar el Service Worker y guardar los archivos en la caché del dispositivo
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
+      return Promise.all(
+        ASSETS.map(asset => {
+          return cache.add(asset).catch(err => console.error('Error al guardar:', asset, err));
+        })
+      );
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activar el SW y limpiar cachés antiguas si las hubiera
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -31,11 +31,18 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Interceptar las peticiones: si está en caché, lo sirve desde ahí. Si no, va a buscarlo a internet.
+// Estrategia: Primero busca en internet, si no hay red, sirve directo de la memoria local
 self.addEventListener('fetch', (e) => {
   e.respondWith(
-    caches.match(e.request).then((cachedResponse) => {
-      return cachedResponse || fetch(e.request);
+    fetch(e.request).catch(() => {
+      return caches.match(e.request).then((response) => {
+        if (response) {
+          return response;
+        }
+        if (e.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
+      });
     })
   );
 });
