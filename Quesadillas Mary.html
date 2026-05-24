@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS Antojitos Dinámico Pro</title>
+
+<link rel="manifest" href="./manifest.json">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                    .then(reg => console.log('¡Service Worker del POS Activo!', reg))
+                    .catch(err => console.error('Error al activar Service Worker', err));
+            });
+        }
+    </script>
+
+    
     <style>
         :root {
             --accent-pink: #ff85a2;
