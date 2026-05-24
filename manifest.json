@@ -1,0 +1,16 @@
+{
+  "name": "Compras",
+  "short_name": "Mis Comrpas",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "www.kindpng.com/picc/m/424-4245845_no-tiene-artculos-en-su-carrito-de-compras.png",
+      "sizes": "512px",
+      "type": "image/png"
+    }
+  ]
+}
